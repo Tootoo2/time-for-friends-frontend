@@ -1,28 +1,9 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-class People extends Component {
-	state = {
-		people: [],
-	};
+const people = props => {
+	return (
+		<div onClick={() => props.removePerson(props.person._id)}>{props.person.name.firstName}</div>
+	);
+};
 
-	componentDidMount() {
-		axios.get('http://localhost:3001/api/people').then(response => {
-			this.setState({ people: response.data });
-		});
-  }
-  
-  test = () => {
-    return this.state.people.map(p=><div>{p.name.firstName}</div>)
-  }
-
-	render() {
-		return (
-			<div>
-				<p>{this.test()}</p>
-			</div>
-		);
-	}
-}
-
-export default People;
+export default people;
