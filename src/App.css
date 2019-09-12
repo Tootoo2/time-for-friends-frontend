@@ -1,4 +1,6 @@
 .App {
+  margin-top: 56px;
+  height:100%;
 	text-align: center;
-	background: #0e9aa7;
+	background: white;
 }
