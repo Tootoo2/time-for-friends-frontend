@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import People from './components/people';
+import People from './components/people/people';
 import axios from 'axios';
 
 class App extends Component {
@@ -30,8 +30,8 @@ class App extends Component {
 	render() {
 		return (
 			<div className='App'>
-				<h4>Hej</h4>
-				{this.renderPeople()}
+				<h4>My Contacts</h4>
+				<div className='contactRow'>{this.renderPeople()}</div>
 			</div>
 		);
 	}

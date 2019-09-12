@@ -1,1 +1,9 @@
+.App {
+  text-align: center;
+}
+.contactRow{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 
