@@ -52,7 +52,7 @@ class App extends Component {
 		return (
 			<div className='App'>
 				<h4>My Contacts</h4>
-				<input onKeyUp={e => this.filterPeople(e)}></input>
+				<input placeholder="search..." onKeyUp={e => this.filterPeople(e)}></input>
 				<div className='contactRow'>{this.renderPeople()}</div>
 			</div>
 		);
