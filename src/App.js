@@ -6,6 +6,7 @@ import axios from 'axios';
 class App extends Component {
 	state = {
 		people: [],
+		search: '',
 	};
 
 	componentDidMount() {
@@ -14,16 +15,36 @@ class App extends Component {
 		});
 	}
 
+	filterPeople(e) {
+		e.preventDefault();
+		console.log(e.target.value);
+		this.setState({ search: e.target.value });
+	}
+
 	renderPeople = () => {
-		return this.state.people.map(p => (
-			<People key={p._id} person={p} removePerson={this.removePerson}></People>
-		));
+		const peopleToRender = this.state.people
+			.filter(
+				p =>
+					p.name.firstName.includes(this.state.search) ||
+					p.name.lastName.includes(this.state.search),
+			)
+			.map(p => (
+				<People
+					key={p._id}
+					person={p}
+					removePerson={this.removePerson}
+				></People>
+			));
+		return peopleToRender;
 	};
 
 	removePerson = id => {
 		const updatedContacts = this.state.people.filter(
 			person => person._id !== id,
 		);
+		axios
+			.delete(`http://localhost:3001/api/people/${id}`)
+			.then(response => console.log(response.data));
 		this.setState({ people: updatedContacts });
 	};
 
@@ -31,6 +52,7 @@ class App extends Component {
 		return (
 			<div className='App'>
 				<h4>My Contacts</h4>
+				<input onKeyUp={e => this.filterPeople(e)}></input>
 				<div className='contactRow'>{this.renderPeople()}</div>
 			</div>
 		);
