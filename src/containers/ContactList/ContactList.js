@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import People from '../../components/People/People';
+import Clock from '../../components/Clock/Clock'
 import styles from './ContactList.module.css';
 
 class ContactList extends Component {
@@ -59,6 +60,7 @@ class ContactList extends Component {
 		return (
 			<>
 				<h4>My Contacts</h4>
+        <Clock />
 				<input
 					className={styles.SearchBar}
 					placeholder='search...'
