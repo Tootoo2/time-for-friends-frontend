@@ -14,10 +14,10 @@ class Clock extends Component {
 
 	tick() {
 		let timeStamp = Date.now();
-    let timeZone = this.props.timeZone;
-    if(this.props.timeZone===undefined){
-      timeZone=moment.tz.guess();
-    }
+		let timeZone = this.props.timeZone;
+		if (this.props.timeZone === undefined) {
+			timeZone = moment.tz.guess();
+		}
 		this.setState({
 			time: moment.tz(timeStamp, timeZone).format('HH:mm:ss'),
 		});

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import styles from './ContactForm.module.css';
+
 class ContactForm extends Component {
 	state = {
 		contact: {
@@ -56,8 +58,8 @@ class ContactForm extends Component {
 		console.log(this.state.contact);
 	};
 
-	submitForm = (e) => {
-    e.preventDefault()
+	submitForm = e => {
+		e.preventDefault();
 		axios
 			.post('http://localhost:3001/api/people/addcontact', this.state.contact)
 			.then(res => console.log(res))
@@ -66,51 +68,55 @@ class ContactForm extends Component {
 
 	render() {
 		return (
-			<form onSubmit={this.submitForm}>
-				<input
-					type='text'
-					name='firstName'
-					placeholder='First Name'
-					onChange={this.updateContactForm}
-				/>
-				<input
-					type='text'
-					name='lastName'
-					placeholder='Last Name'
-					onChange={this.updateContactForm}
-				/>
-				<input
-					type='text'
-					name='phoneNumber'
-					placeholder='Phone Number'
-					onChange={this.updateContactForm}
-				/>
-				<input
-					type='text'
-					name='mail'
-					placeholder='Mail'
-					onChange={this.updateContactForm}
-				/>
-				<input
-					type='text'
-					name='country'
-					placeholder='Country'
-					onChange={this.updateContactForm}
-				/>
-				<input
-					type='text'
-					name='city'
-					placeholder='City'
-					onChange={this.updateContactForm}
-				/>
-				<input
-					type='text'
-					name='timeZone'
-					placeholder='Time Zone'
-					onChange={this.updateContactForm}
-				/>
-				<button type='submit'>Submit</button>
-			</form>
+			<div className={styles.FormContainer}>
+				<form onSubmit={this.submitForm}>
+					<div>
+						<input
+							type='text'
+							name='firstName'
+							placeholder='First Name'
+							onChange={this.updateContactForm}
+						/>
+						<input
+							type='text'
+							name='lastName'
+							placeholder='Last Name'
+							onChange={this.updateContactForm}
+						/>
+						<input
+							type='text'
+							name='phoneNumber'
+							placeholder='Phone Number'
+							onChange={this.updateContactForm}
+						/>
+						<input
+							type='text'
+							name='mail'
+							placeholder='Mail'
+							onChange={this.updateContactForm}
+						/>
+						<input
+							type='text'
+							name='country'
+							placeholder='Country'
+							onChange={this.updateContactForm}
+						/>
+						<input
+							type='text'
+							name='city'
+							placeholder='City'
+							onChange={this.updateContactForm}
+						/>
+						<input
+							type='text'
+							name='timeZone'
+							placeholder='Time Zone'
+							onChange={this.updateContactForm}
+						/>
+					</div>
+					<button type='submit'>Submit</button>
+				</form>
+			</div>
 		);
 	}
 }
