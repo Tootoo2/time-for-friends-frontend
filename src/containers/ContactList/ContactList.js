@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import People from '../../components/people/people';
 import axios from 'axios';
+
+import People from '../../components/People/People';
 import styles from './ContactList.module.css';
 
 class ContactList extends Component {
