@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class ContactForm extends Component {
 	state = {
@@ -51,13 +52,21 @@ class ContactForm extends Component {
 				break;
 			default:
 				console.log('not valid input');
-    }
-    console.log(this.state.contact)
+		}
+		console.log(this.state.contact);
+	};
+
+	submitForm = (e) => {
+    e.preventDefault()
+		axios
+			.post('http://localhost:3001/api/people/addcontact', this.state.contact)
+			.then(res => console.log(res))
+			.catch(err => console.error(err));
 	};
 
 	render() {
 		return (
-			<form>
+			<form onSubmit={this.submitForm}>
 				<input
 					type='text'
 					name='firstName'
@@ -100,6 +109,7 @@ class ContactForm extends Component {
 					placeholder='Time Zone'
 					onChange={this.updateContactForm}
 				/>
+				<button type='submit'>Submit</button>
 			</form>
 		);
 	}

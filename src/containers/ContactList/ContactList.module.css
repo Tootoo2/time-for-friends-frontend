@@ -3,3 +3,7 @@
 	flex-wrap: wrap;
 	justify-content: space-around;
 }
+
+.SearchBar{
+ margin-bottom: 24px;
+}

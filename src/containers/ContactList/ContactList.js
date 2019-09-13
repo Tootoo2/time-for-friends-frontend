@@ -53,7 +53,7 @@ class ContactList extends Component {
 		return (
 			<>
 				<h4>My Contacts</h4>
-				<input
+				<input className={styles.SearchBar}
 					placeholder='search...'
 					onKeyUp={e => this.filterPeople(e)}
 				></input>
