@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import People from '../../components/People/People';
-import Clock from '../../components/Clock/Clock'
+import Clock from '../../components/Clock/Clock';
 import styles from './ContactList.module.css';
 
 class ContactList extends Component {
@@ -24,7 +24,6 @@ class ContactList extends Component {
 			.toLowerCase()
 			.split('')
 			.join('');
-		console.log(inputToLowerCase);
 		this.setState({ search: inputToLowerCase });
 	}
 
@@ -43,7 +42,9 @@ class ContactList extends Component {
 					removePerson={this.removePerson}
 				></People>
 			));
-		return peopleToRender;
+    const renderToArray = Array.from(peopleToRender);
+    renderToArray.sort((a,b) => a.props.person.name.firstName > b.props.person.name.firstName ? 1 : -1)
+		return renderToArray;
 	};
 
 	removePerson = id => {
@@ -60,7 +61,7 @@ class ContactList extends Component {
 		return (
 			<>
 				<h4>My Contacts</h4>
-        <Clock />
+				<Clock />
 				<input
 					className={styles.SearchBar}
 					placeholder='search...'

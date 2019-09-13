@@ -6,7 +6,17 @@
 	left: 0;
 	background-color: #ccc;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 	padding: 0 20px;
 }
+
+.Header ul {
+	list-style: none;
+}
+.Header li {
+  display: inline-block;
+  margin: 20px;
+}
+
+

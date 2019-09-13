@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import './App.css';
-import Header from './components/Header/header'
+import Header from './components/Header/Header'
 import ContactList from './containers/ContactList/ContactList';
 import NewContact from './containers/NewContact/NewContact';
 
