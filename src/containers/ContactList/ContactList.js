@@ -18,16 +18,22 @@ class ContactList extends Component {
 
 	filterPeople(e) {
 		e.preventDefault();
-		console.log(e.target.value);
-		this.setState({ search: e.target.value });
+		let input = e.target.value;
+		let inputToLowerCase = input
+			.toLowerCase()
+			.split('')
+			.join('');
+		console.log(inputToLowerCase);
+		this.setState({ search: inputToLowerCase });
 	}
 
 	renderPeople = () => {
 		const peopleToRender = this.state.people
-			.filter(
-				p =>
-					p.name.firstName.includes(this.state.search) ||
-					p.name.lastName.includes(this.state.search),
+			.filter(p =>
+				p.name.firstName
+					.toLowerCase()
+					.concat(' ', p.name.lastName.toLowerCase())
+					.includes(this.state.search),
 			)
 			.map(p => (
 				<People
@@ -53,7 +59,8 @@ class ContactList extends Component {
 		return (
 			<>
 				<h4>My Contacts</h4>
-				<input className={styles.SearchBar}
+				<input
+					className={styles.SearchBar}
 					placeholder='search...'
 					onKeyUp={e => this.filterPeople(e)}
 				></input>
