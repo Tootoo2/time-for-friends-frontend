@@ -4,6 +4,12 @@
 	border: 2px solid #ccc;
 	margin-bottom: 1rem;
   width: 40%;
-  cursor: pointer;
-  background: whitesmoke;
+  background: #F5F5F5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+I{
+ cursor: pointer;
 }
