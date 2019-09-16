@@ -14,8 +14,8 @@ class ContactList extends Component {
 	componentDidMount() {
 		// axios.get('http://localhost:3001/api/people').then(response => {
 		// 	this.setState({ people: response.data });
-    // });
-    this.props.onFetchContacts()
+		// });
+		this.props.onFetchContacts();
 	}
 
 	filterContacts(e) {
@@ -40,7 +40,7 @@ class ContactList extends Component {
 				<People
 					key={p._id}
 					person={p}
-					removePerson={()=>this.props.onDeleteContacts(p._id)}
+					removePerson={() => this.props.onDeleteContacts(p._id)}
 				></People>
 			));
 		const renderToArray = Array.from(peopleToRender);
@@ -84,8 +84,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-    onFetchContacts: () => dispatch(fetchContacts()),
-    onDeleteContacts: (id) => dispatch(deleteContact(id))
+		onFetchContacts: () => dispatch(fetchContacts()),
+		onDeleteContacts: id => dispatch(deleteContact(id)),
 	};
 };
 
