@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
 
 import People from '../../components/People/People';
 import Clock from '../../components/Clock/Clock';
 import styles from './ContactList.module.css';
+import { fetchContacts, deleteContact } from '../../store/actions/actions';
 
 class ContactList extends Component {
 	state = {
-		people: [],
 		search: '',
 	};
 
 	componentDidMount() {
-		axios.get('http://localhost:3001/api/people').then(response => {
-			this.setState({ people: response.data });
-		});
+		// axios.get('http://localhost:3001/api/people').then(response => {
+		// 	this.setState({ people: response.data });
+    // });
+    this.props.onFetchContacts()
 	}
 
 	filterPeople(e) {
@@ -28,7 +29,7 @@ class ContactList extends Component {
 	}
 
 	renderPeople = () => {
-		const peopleToRender = this.state.people
+		const peopleToRender = this.props.contacts
 			.filter(p =>
 				p.name.firstName
 					.toLowerCase()
@@ -39,23 +40,25 @@ class ContactList extends Component {
 				<People
 					key={p._id}
 					person={p}
-					removePerson={this.removePerson}
+					removePerson={()=>this.props.onDeleteContacts(p._id)}
 				></People>
 			));
-    const renderToArray = Array.from(peopleToRender);
-    renderToArray.sort((a,b) => a.props.person.name.firstName > b.props.person.name.firstName ? 1 : -1)
+		const renderToArray = Array.from(peopleToRender);
+		renderToArray.sort((a, b) =>
+			a.props.person.name.firstName > b.props.person.name.firstName ? 1 : -1,
+		);
 		return renderToArray;
 	};
 
-	removePerson = id => {
-		const updatedContacts = this.state.people.filter(
-			person => person._id !== id,
-		);
-		axios
-			.delete(`http://localhost:3001/api/people/${id}`)
-			.then(response => console.log(response.data));
-		this.setState({ people: updatedContacts });
-	};
+	// removePerson = id => {
+	// 	const updatedContacts = this.props.contacts.filter(
+	// 		person => person._id !== id,
+	// 	);
+	// 	axios
+	// 		.delete(`http://localhost:3001/api/people/${id}`)
+	// 		.then(response => console.log(response.data));
+	// 	this.setState({ people: updatedContacts });
+	// };
 
 	render() {
 		return (
@@ -73,4 +76,20 @@ class ContactList extends Component {
 	}
 }
 
-export default ContactList;
+const mapStateToProps = state => {
+	return {
+		contacts: state.contacts,
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+    onFetchContacts: () => dispatch(fetchContacts()),
+    onDeleteContacts: (id) => dispatch(deleteContact(id))
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(ContactList);
