@@ -18,7 +18,7 @@ class ContactList extends Component {
     this.props.onFetchContacts()
 	}
 
-	filterPeople(e) {
+	filterContacts(e) {
 		e.preventDefault();
 		let input = e.target.value;
 		let inputToLowerCase = input
@@ -68,7 +68,7 @@ class ContactList extends Component {
 				<input
 					className={styles.SearchBar}
 					placeholder='search...'
-					onKeyUp={e => this.filterPeople(e)}
+					onKeyUp={e => this.filterContacts(e)}
 				></input>
 				<div className={styles.ContactRow}>{this.renderPeople()}</div>
 			</>

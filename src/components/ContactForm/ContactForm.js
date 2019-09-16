@@ -62,53 +62,77 @@ class ContactForm extends Component {
 		e.preventDefault();
 		axios
 			.post('http://localhost:3001/api/people/addcontact', this.state.contact)
-			.then(res => console.log(res))
+			.then(
+				res => console.log(res),
+				this.setState({
+					contact: {
+						name: {
+							firstName: '',
+							lastName: '',
+						},
+						phoneNumber: '',
+						mail: '',
+						location: {
+							country: '',
+							city: '',
+							timeZone: '',
+						},
+					},
+				}),
+			)
 			.catch(err => console.error(err));
 	};
 
 	render() {
 		return (
 			<div className={styles.FormContainer}>
-				<form onSubmit={this.submitForm}>
+				<form id='test' onSubmit={this.submitForm}>
 					<div>
 						<input
 							type='text'
+							value={this.state.contact.name.firstName}
 							name='firstName'
 							placeholder='First Name'
 							onChange={this.updateContactForm}
 						/>
 						<input
 							type='text'
+							value={this.state.contact.name.lastName}
 							name='lastName'
 							placeholder='Last Name'
 							onChange={this.updateContactForm}
 						/>
 						<input
 							type='text'
+							value={this.state.contact.phoneNumber}
 							name='phoneNumber'
 							placeholder='Phone Number'
 							onChange={this.updateContactForm}
 						/>
 						<input
 							type='text'
+							value={this.state.contact.mail}
 							name='mail'
 							placeholder='Mail'
 							onChange={this.updateContactForm}
 						/>
 						<input
 							type='text'
+							value={this.state.contact.location.country}
 							name='country'
 							placeholder='Country'
 							onChange={this.updateContactForm}
 						/>
 						<input
 							type='text'
+							value={this.state.contact.location.city}
 							name='city'
 							placeholder='City'
 							onChange={this.updateContactForm}
 						/>
 						<input
 							type='text'
+							value={this.state.contact.location.timeZone}
 							name='timeZone'
 							placeholder='Time Zone'
 							onChange={this.updateContactForm}
