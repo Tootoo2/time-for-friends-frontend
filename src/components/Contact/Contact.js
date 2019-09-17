@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Clock from '../Clock/Clock';
-import style from './People.module.css';
+import style from './Contact.module.css';
 
 const people = props => {
 	return (

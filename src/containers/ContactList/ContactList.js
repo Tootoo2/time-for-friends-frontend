@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import People from '../../components/People/People';
+import Contact from '../../components/Contact/Contact';
 import Clock from '../../components/Clock/Clock';
 import styles from './ContactList.module.css';
 import { fetchContacts, deleteContact } from '../../store/actions/actions';
@@ -26,7 +26,7 @@ class ContactList extends Component {
 		this.setState({ search: inputToLowerCase });
 	}
 
-	renderPeople = () => {
+	renderContacts = () => {
 		const peopleToRender = this.props.contacts
 			.filter(p =>
 				p.name.firstName
@@ -35,11 +35,11 @@ class ContactList extends Component {
 					.includes(this.state.search),
 			)
 			.map(p => (
-				<People
+				<Contact
 					key={p._id}
 					person={p}
 					removePerson={() => this.props.onDeleteContacts(p._id)}
-				></People>
+				></Contact>
 			));
 		if (this.state.filterByFirstName) {
 			const renderToArray = Array.from(peopleToRender);
@@ -60,15 +60,48 @@ class ContactList extends Component {
 
 	filterContacts = () => {
 		const test = (
-			<> <p style={{display: 'inline-block'}}>Filter contacts by:  </p>
-				<span style={this.state.filterByFirstName ? {backgroundColor: '#f0ffd9', cursor: 'pointer', margin: '5px', border: '1px solid gray'}: {backgroundColor: 'white', cursor: 'pointer', margin: '5px', border: '1px solid gray'}}
+			<>
+				{' '}
+				<p style={{ display: 'inline-block' }}>Filter contacts by: </p>
+				<span
+					style={
+						this.state.filterByFirstName
+							? {
+									backgroundColor: '#f0ffd9',
+									cursor: 'pointer',
+									margin: '5px',
+									border: '1px solid gray',
+							  }
+							: {
+									backgroundColor: 'white',
+									cursor: 'pointer',
+									margin: '5px',
+									border: '1px solid gray',
+							  }
+					}
 					onClick={() =>
 						this.setState({ filterByFirstName: !this.state.filterByFirstName })
 					}
 				>
 					First Name
 				</span>
-				<span style={!this.state.filterByFirstName ? {backgroundColor: '#f0ffd9', cursor: 'pointer', width: '150px', margin: '5px', border: '1px solid gray'}: {backgroundColor: 'white', cursor: 'pointer', margin: '5px', border: '1px solid gray'}}
+				<span
+					style={
+						!this.state.filterByFirstName
+							? {
+									backgroundColor: '#f0ffd9',
+									cursor: 'pointer',
+									width: '150px',
+									margin: '5px',
+									border: '1px solid gray',
+							  }
+							: {
+									backgroundColor: 'white',
+									cursor: 'pointer',
+									margin: '5px',
+									border: '1px solid gray',
+							  }
+					}
 					onClick={() =>
 						this.setState({ filterByFirstName: !this.state.filterByFirstName })
 					}
@@ -76,8 +109,8 @@ class ContactList extends Component {
 					Time Zone
 				</span>
 			</>
-    );
-    return test
+		);
+		return test;
 	};
 
 	render() {
@@ -90,9 +123,9 @@ class ContactList extends Component {
 					placeholder='search...'
 					onKeyUp={e => this.handleSearchInput(e)}
 				></input>
-        <br/>
-        {this.filterContacts()}
-				<div className={styles.ContactRow}>{this.renderPeople()}</div>
+				<br />
+				{this.filterContacts()}
+				<div className={styles.ContactRow}>{this.renderContacts()}</div>
 			</>
 		);
 	}
