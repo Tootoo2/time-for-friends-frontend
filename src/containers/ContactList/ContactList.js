@@ -9,16 +9,14 @@ import { fetchContacts, deleteContact } from '../../store/actions/actions';
 class ContactList extends Component {
 	state = {
 		search: '',
+		filterByFirstName: true,
 	};
 
 	componentDidMount() {
-		// axios.get('http://localhost:3001/api/people').then(response => {
-		// 	this.setState({ people: response.data });
-		// });
 		this.props.onFetchContacts();
 	}
 
-	filterContacts(e) {
+	handleSearchInput(e) {
 		e.preventDefault();
 		let input = e.target.value;
 		let inputToLowerCase = input
@@ -43,22 +41,44 @@ class ContactList extends Component {
 					removePerson={() => this.props.onDeleteContacts(p._id)}
 				></People>
 			));
-		const renderToArray = Array.from(peopleToRender);
-		renderToArray.sort((a, b) =>
-			a.props.person.name.firstName > b.props.person.name.firstName ? 1 : -1,
-		);
-		return renderToArray;
+		if (this.state.filterByFirstName) {
+			const renderToArray = Array.from(peopleToRender);
+			renderToArray.sort((a, b) =>
+				a.props.person.name.firstName > b.props.person.name.firstName ? 1 : -1,
+			);
+			return renderToArray;
+		} else {
+			const renderToArray = Array.from(peopleToRender);
+			renderToArray.sort((a, b) =>
+				a.props.person.location.timeZone > b.props.person.location.timeZone
+					? 1
+					: -1,
+			);
+			return renderToArray;
+		}
 	};
 
-	// removePerson = id => {
-	// 	const updatedContacts = this.props.contacts.filter(
-	// 		person => person._id !== id,
-	// 	);
-	// 	axios
-	// 		.delete(`http://localhost:3001/api/people/${id}`)
-	// 		.then(response => console.log(response.data));
-	// 	this.setState({ people: updatedContacts });
-	// };
+	filterContacts = () => {
+		const test = (
+			<> <p style={{display: 'inline-block'}}>Filter contacts by:  </p>
+				<span style={this.state.filterByFirstName ? {backgroundColor: '#f0ffd9', cursor: 'pointer', margin: '5px', border: '1px solid gray'}: {backgroundColor: 'white', cursor: 'pointer', margin: '5px', border: '1px solid gray'}}
+					onClick={() =>
+						this.setState({ filterByFirstName: !this.state.filterByFirstName })
+					}
+				>
+					First Name
+				</span>
+				<span style={!this.state.filterByFirstName ? {backgroundColor: '#f0ffd9', cursor: 'pointer', width: '150px', margin: '5px', border: '1px solid gray'}: {backgroundColor: 'white', cursor: 'pointer', margin: '5px', border: '1px solid gray'}}
+					onClick={() =>
+						this.setState({ filterByFirstName: !this.state.filterByFirstName })
+					}
+				>
+					Time Zone
+				</span>
+			</>
+    );
+    return test
+	};
 
 	render() {
 		return (
@@ -68,8 +88,10 @@ class ContactList extends Component {
 				<input
 					className={styles.SearchBar}
 					placeholder='search...'
-					onKeyUp={e => this.filterContacts(e)}
+					onKeyUp={e => this.handleSearchInput(e)}
 				></input>
+        <br/>
+        {this.filterContacts()}
 				<div className={styles.ContactRow}>{this.renderPeople()}</div>
 			</>
 		);

@@ -7,3 +7,13 @@
 .SearchBar{
  margin-bottom: 24px;
 }
+
+.RadioContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+Input[type="radio"]{
+ width: 10px;
+}
