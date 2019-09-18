@@ -2,7 +2,8 @@ import React from 'react'
 
 const individualContact = (props) => {
   console.log(props)
-  return (<div>HAAAAJ</div>)
+  const contact = props.location.state
+  return (<div>{contact.name.firstName}</div>)
 }
 
 export default individualContact;

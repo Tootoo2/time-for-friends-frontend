@@ -38,7 +38,7 @@ class ContactList extends Component {
 				<Contact
 					key={p._id}
 					person={p}
-					clicked={() => this.contactSelectedHandler(p._id)}
+					clicked={() => this.contactSelectedHandler(p)}
 					removePerson={() => this.props.onDeleteContacts(p._id)}
 				></Contact>
 			));
@@ -59,8 +59,8 @@ class ContactList extends Component {
 		}
 	};
 
-	contactSelectedHandler = id => {
-		this.props.history.push('contact/' + id);
+	contactSelectedHandler = contact => {
+		this.props.history.push({pathname:'contact/' + contact._id, state: contact});
 	};
 
 	filterContacts = () => {
