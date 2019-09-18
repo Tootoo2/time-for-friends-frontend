@@ -1,7 +1,7 @@
 .FormContainer{
   width: 50%;
   margin: auto;
-  background: #F5F5F5;
+  background: #b7cece;
   padding: 24px;
   border-radius: 4px;
   border: 2px solid rgb(236, 233, 233);
@@ -10,6 +10,15 @@
 Input{
   width: 45%;
   margin: 8px;
+}
+
+@media screen and (max-width: 900px){
+  .FormContainer{
+    width: 90%;
+  }
+  Input{
+    width: 90%;
+  }
 }
 
 

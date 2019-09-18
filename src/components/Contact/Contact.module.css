@@ -3,8 +3,8 @@
 	padding: 0.1rem 0.25rem;
 	border: 2px solid #ccc;
 	margin-bottom: 1rem;
-  width: 40%;
-  background: #F5F5F5;
+  width: 60%;
+  background: #b7cece;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,4 +12,10 @@
 
 I{
  cursor: pointer;
+}
+
+@media screen and (max-width: 900px){
+  .contactCard{
+    width: 85%
+  }
 }

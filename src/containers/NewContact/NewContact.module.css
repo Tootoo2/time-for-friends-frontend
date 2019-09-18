@@ -1,3 +1,9 @@
 .ContactContainer{
-  margin-top: 124px;
+  margin-top: 200px;
+}
+
+@media screen and (max-width: 900px){
+  .ContactContainer{
+    margin-top: 76px;
+  }
 }

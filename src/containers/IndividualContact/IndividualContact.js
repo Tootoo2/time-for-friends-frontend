@@ -1,8 +1,8 @@
 import React from 'react'
 
 const individualContact = (props) => {
-  const person = props.location.state.person
-  return (<div>{person.name.firstName}</div>)
+  console.log(props)
+  return (<div>HAAAAJ</div>)
 }
 
 export default individualContact;

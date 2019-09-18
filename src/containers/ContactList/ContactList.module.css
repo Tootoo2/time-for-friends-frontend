@@ -1,20 +1,16 @@
 .ContactRow {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-around;
+  justify-content: space-around;
 }
 
-.SearchBar{
- margin-bottom: 24px;
- width: 20%;
+.Greeting{
+  display:flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
-.RadioContainer{
-  display: flex;
-  justify-content: center;
+.FilterButtons{
+  display:flex; 
   align-items: center;
-}
-
-Input[type="radio"]{
- width: 10px;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 
 import Contact from '../../components/Contact/Contact';
 import Clock from '../../components/Clock/Clock';
@@ -38,6 +39,7 @@ class ContactList extends Component {
 				<Contact
 					key={p._id}
 					person={p}
+					clicked={() => this.contactSelectedHandler(p._id)}
 					removePerson={() => this.props.onDeleteContacts(p._id)}
 				></Contact>
 			));
@@ -58,25 +60,28 @@ class ContactList extends Component {
 		}
 	};
 
+	contactSelectedHandler = id => {
+		this.props.history.push('contact/' + id);
+	};
+
 	filterContacts = () => {
 		const test = (
 			<>
-				{' '}
-				<p style={{ display: 'inline-block' }}>Filter contacts by: </p>
-				<span
+				<p>Filter contacts by: </p>
+				<div
 					style={
 						this.state.filterByFirstName
 							? {
-									backgroundColor: '#f0ffd9',
 									cursor: 'pointer',
 									margin: '5px',
-									border: '1px solid gray',
+                  border: '3px solid green',
+                  padding: '5px'
 							  }
 							: {
-									backgroundColor: 'white',
 									cursor: 'pointer',
 									margin: '5px',
-									border: '1px solid gray',
+                  border: '1px solid gray',
+                  padding: '5px'
 							  }
 					}
 					onClick={() =>
@@ -84,22 +89,21 @@ class ContactList extends Component {
 					}
 				>
 					First Name
-				</span>
-				<span
+				</div>
+				<div
 					style={
 						!this.state.filterByFirstName
 							? {
-									backgroundColor: '#f0ffd9',
 									cursor: 'pointer',
-									width: '150px',
 									margin: '5px',
-									border: '1px solid gray',
+                  border: '3px solid green',
+                  padding: '5px'
 							  }
 							: {
-									backgroundColor: 'white',
 									cursor: 'pointer',
 									margin: '5px',
-									border: '1px solid gray',
+                  border: '1px solid gray',
+                  padding: '5px'
 							  }
 					}
 					onClick={() =>
@@ -107,7 +111,7 @@ class ContactList extends Component {
 					}
 				>
 					Time Zone
-				</span>
+				</div>
 			</>
 		);
 		return test;
@@ -115,16 +119,16 @@ class ContactList extends Component {
 
 	render() {
 		return (
-			<>
-				<h4>My Contacts</h4>
-				<Clock />
-				<input
-					className={styles.SearchBar}
-					placeholder='search...'
-					onKeyUp={e => this.handleSearchInput(e)}
-				></input>
-				<br />
-				{this.filterContacts()}
+			<>				
+			<Clock />
+				<div className={styles.Greeting}>
+					<input
+						className={styles.SearchBar}
+						placeholder='search...'
+						onKeyUp={e => this.handleSearchInput(e)}
+					></input>
+				</div>
+        <div className={styles.FilterButtons}>{this.filterContacts()}</div>
 				<div className={styles.ContactRow}>{this.renderContacts()}</div>
 			</>
 		);
