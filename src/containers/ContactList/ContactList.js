@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
 
 import Contact from '../../components/Contact/Contact';
 import Clock from '../../components/Clock/Clock';
