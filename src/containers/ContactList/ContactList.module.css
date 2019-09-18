@@ -2,6 +2,7 @@
 	display: flex;
 	flex-wrap: wrap;
   justify-content: space-around;
+  width: 75%;
 }
 
 .Greeting{
@@ -13,4 +14,10 @@
 .FilterButtons{
   display:flex; 
   align-items: center;
+}
+
+@media screen and (max-width:900px){
+  .ContactRow{
+    width: 100%
+  }
 }

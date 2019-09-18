@@ -5,11 +5,14 @@ import Contact from '../../components/Contact/Contact';
 import Clock from '../../components/Clock/Clock';
 import styles from './ContactList.module.css';
 import { fetchContacts, deleteContact } from '../../store/actions/actions';
+import Modal from '../../components/UI/Modal/Modal';
 
 class ContactList extends Component {
 	state = {
 		search: '',
 		filterByFirstName: true,
+    showModal: false,
+    id: null,
 	};
 
 	componentDidMount() {
@@ -24,7 +27,16 @@ class ContactList extends Component {
 			.split('')
 			.join('');
 		this.setState({ search: inputToLowerCase });
-	}
+  }
+  
+  deleteContact = () => {
+    this.props.onDeleteContacts(this.state.id)
+    this.setState({showModal: !this.state.showModal, id: null})
+  }
+
+	changeModalState = (id) => {
+		this.setState({ showModal: !this.state.showModal, id });
+	};
 
 	renderContacts = () => {
 		const peopleToRender = this.props.contacts
@@ -39,7 +51,8 @@ class ContactList extends Component {
 					key={p._id}
 					person={p}
 					clicked={() => this.contactSelectedHandler(p)}
-					removePerson={() => this.props.onDeleteContacts(p._id)}
+          removePerson={//() => this.props.onDeleteContacts(p._id)
+          ()=>this.changeModalState(p._id)}
 				></Contact>
 			));
 		if (this.state.filterByFirstName) {
@@ -60,7 +73,10 @@ class ContactList extends Component {
 	};
 
 	contactSelectedHandler = contact => {
-		this.props.history.push({pathname:'contact/' + contact._id, state: contact});
+		this.props.history.push({
+			pathname: 'contact/' + contact._id,
+			state: contact,
+		});
 	};
 
 	filterContacts = () => {
@@ -73,14 +89,14 @@ class ContactList extends Component {
 							? {
 									cursor: 'pointer',
 									margin: '5px',
-                  border: '3px solid green',
-                  padding: '5px'
+									border: '3px solid green',
+									padding: '5px',
 							  }
 							: {
 									cursor: 'pointer',
 									margin: '5px',
-                  border: '1px solid gray',
-                  padding: '5px'
+									border: '1px solid gray',
+									padding: '5px',
 							  }
 					}
 					onClick={() =>
@@ -95,14 +111,14 @@ class ContactList extends Component {
 							? {
 									cursor: 'pointer',
 									margin: '5px',
-                  border: '3px solid green',
-                  padding: '5px'
+									border: '3px solid green',
+									padding: '5px',
 							  }
 							: {
 									cursor: 'pointer',
 									margin: '5px',
-                  border: '1px solid gray',
-                  padding: '5px'
+									border: '1px solid gray',
+									padding: '5px',
 							  }
 					}
 					onClick={() =>
@@ -117,9 +133,20 @@ class ContactList extends Component {
 	};
 
 	render() {
+		let modalInfo = (
+			<div>
+				<h4>Do you really want to terminate this friendship?</h4>
+				<button onClick={()=>this.deleteContact()}>Yes</button>
+				<button onClick={this.changeModalState}>No</button>
+			</div>
+		);
+
 		return (
-			<>				
-			<Clock />
+			<>
+				<Modal show={this.state.showModal} modalClosed={this.changeModalState}>
+					{modalInfo}
+				</Modal>
+				<Clock />
 				<div className={styles.Greeting}>
 					<input
 						className={styles.SearchBar}
@@ -127,7 +154,7 @@ class ContactList extends Component {
 						onKeyUp={e => this.handleSearchInput(e)}
 					></input>
 				</div>
-        <div className={styles.FilterButtons}>{this.filterContacts()}</div>
+				<div className={styles.FilterButtons}>{this.filterContacts()}</div>
 				<div className={styles.ContactRow}>{this.renderContacts()}</div>
 			</>
 		);
