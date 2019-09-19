@@ -11,7 +11,7 @@ class ContactForm extends Component {
 				lastName: '',
 			},
 			phoneNumber: '',
-			mail: '',
+			email: '',
 			location: {
 				country: '',
 				city: '',
@@ -37,7 +37,7 @@ class ContactForm extends Component {
 				this.setState({ contact: updatedContact });
 				break;
 			case 'mail':
-				updatedContact.mail = e.target.value;
+				updatedContact.email = e.target.value;
 				this.setState({ contact: updatedContact });
 				break;
 			case 'country':
@@ -71,7 +71,7 @@ class ContactForm extends Component {
 							lastName: '',
 						},
 						phoneNumber: '',
-						mail: '',
+						email: '',
 						location: {
 							country: '',
 							city: '',
@@ -111,7 +111,7 @@ class ContactForm extends Component {
 						/>
 						<input
 							type='text'
-							value={this.state.contact.mail}
+							value={this.state.contact.email}
 							name='mail'
 							placeholder='Mail'
 							onChange={this.updateContactForm}
