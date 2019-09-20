@@ -7,7 +7,7 @@
   border: 2px solid rgb(236, 233, 233);
 }
 
-Input{
+.InputFields{
   width: 45%;
   margin: 8px;
 }
@@ -16,7 +16,7 @@ Input{
   .FormContainer{
     width: 90%;
   }
-  Input{
+  .InputFields{
     width: 90%;
   }
 }

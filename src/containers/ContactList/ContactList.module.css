@@ -7,13 +7,17 @@
 
 .Greeting{
   display:flex;
-  justify-content: space-around;
-  width: 100%;
+  justify-content: center;
+  width: 60%;
 }
 
 .FilterButtons{
   display:flex; 
   align-items: center;
+}
+
+.InputStyle{
+  margin-right: 12px;
 }
 
 @media screen and (max-width:900px){

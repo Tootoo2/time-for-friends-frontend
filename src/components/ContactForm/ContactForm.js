@@ -89,6 +89,7 @@ class ContactForm extends Component {
 				<form id='test' onSubmit={this.submitForm}>
 					<div>
 						<input
+							className={styles.InputFields}
 							type='text'
 							value={this.state.contact.name.firstName}
 							name='firstName'
@@ -96,6 +97,7 @@ class ContactForm extends Component {
 							onChange={this.updateContactForm}
 						/>
 						<input
+							className={styles.InputFields}
 							type='text'
 							value={this.state.contact.name.lastName}
 							name='lastName'
@@ -103,6 +105,7 @@ class ContactForm extends Component {
 							onChange={this.updateContactForm}
 						/>
 						<input
+							className={styles.InputFields}
 							type='text'
 							value={this.state.contact.phoneNumber}
 							name='phoneNumber'
@@ -110,6 +113,7 @@ class ContactForm extends Component {
 							onChange={this.updateContactForm}
 						/>
 						<input
+							className={styles.InputFields}
 							type='text'
 							value={this.state.contact.email}
 							name='mail'
@@ -117,6 +121,7 @@ class ContactForm extends Component {
 							onChange={this.updateContactForm}
 						/>
 						<input
+							className={styles.InputFields}
 							type='text'
 							value={this.state.contact.location.country}
 							name='country'
@@ -124,6 +129,7 @@ class ContactForm extends Component {
 							onChange={this.updateContactForm}
 						/>
 						<input
+							className={styles.InputFields}
 							type='text'
 							value={this.state.contact.location.city}
 							name='city'
@@ -131,6 +137,7 @@ class ContactForm extends Component {
 							onChange={this.updateContactForm}
 						/>
 						<input
+							className={styles.InputFields}
 							type='text'
 							value={this.state.contact.location.timeZone}
 							name='timeZone'
