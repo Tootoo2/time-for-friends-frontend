@@ -3,7 +3,7 @@ import moment from 'moment-timezone';
 
 class Clock extends Component {
 	state = {
-		time: moment().format('HH:mm:ss'),
+		time: moment.tz(moment(), this.props.timeZone).format('HH:mm:ss'),
 	};
 
 	componentDidMount() {

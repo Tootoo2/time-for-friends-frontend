@@ -1,27 +1,35 @@
 .ContactRow {
 	display: flex;
 	flex-wrap: wrap;
-  justify-content: space-around;
-  width: 75%;
+	justify-content: space-around;
+	width: 75%;
 }
 
-.Greeting{
-  display:flex;
-  justify-content: center;
-  width: 60%;
+.Greeting {
+	display: flex;
+	justify-content: center;
+	width: 70%;
+	margin-top: 12px;
 }
 
-.FilterButtons{
-  display:flex; 
-  align-items: center;
+.FilterButtons {
+	display: flex;
+	align-items: center;
 }
 
-.InputStyle{
-  margin-right: 12px;
+.InputStyle {
+	margin-right: 12px;
 }
 
-@media screen and (max-width:900px){
-  .ContactRow{
-    width: 100%
-  }
+@media screen and (max-width: 900px) {
+	.ContactRow {
+		width: 100%;
+	}
+	.InputStyle {
+		width: 60%;
+	}
+
+	.Greeting {
+		width: 90%;
+	}
 }

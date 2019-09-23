@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Contact from '../../components/Contact/Contact';
-import Clock from '../../components/Clock/Clock';
 import styles from './ContactList.module.css';
 import { fetchContacts, deleteContact } from '../../store/actions/actions';
 import Modal from '../../components/UI/Modal/Modal';
@@ -202,7 +201,6 @@ class ContactList extends Component {
 				<Modal show={this.state.showModal} modalClosed={this.changeModalState}>
 					{modalInfo}
 				</Modal>
-				<Clock />
 				<div className={styles.Greeting}>
 					<input
 						className={styles.InputStyle}
@@ -216,7 +214,7 @@ class ContactList extends Component {
 						<option value={8}>08 - 12</option>
 						<option value={12}>12 - 16</option>
 						<option value={16}>16 - 20</option>
-						<option value={20}>20 - 24</option>
+						<option value={20}>20 - 00</option>
 					</select>
 				</div>
 				<div className={styles.FilterButtons}>{this.sortContactsHandler()}</div>
