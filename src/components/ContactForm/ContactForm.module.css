@@ -1,25 +1,40 @@
-.FormContainer{
-  width: 50%;
-  margin: auto;
-  background: #b7cece;
-  padding: 24px;
-  border-radius: 4px;
-  border: 2px solid rgb(236, 233, 233);
+.FormContainer {
+	width: 50%;
+	margin: auto;
+	background: #b7cece;
+	padding: 24px;
+	border-radius: 4px;
+	border: 2px solid rgb(236, 233, 233);
 }
 
-.InputFields{
-  width: 45%;
-  margin: 8px;
+.InputFields {
+	width: 50%;
+	margin: 8px;
 }
 
-@media screen and (max-width: 900px){
-  .FormContainer{
-    width: 90%;
-  }
-  .InputFields{
-    width: 90%;
-  }
+.TheForm {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.InvalidInput {
+	position: absolute;
+	display: inline;
+  font-size: 0.7em;
+  margin-top: 15px;
+	color: red;
 }
 
+.InputContainer{
+  width: 100%;
+}
 
-
+@media screen and (max-width: 1000px) {
+	.FormContainer {
+		width: 95%;
+	}
+	.InputFields {
+		width: 50%;
+	}
+}
