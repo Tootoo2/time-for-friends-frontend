@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import styles from './ContactForm.module.css';
+import Modal from '../UI/Modal/Modal'
 import location from './location.json';
 
 class ContactForm extends Component {
@@ -32,7 +33,8 @@ class ContactForm extends Component {
 			lastName: false,
 			phoneNumber: false,
 			email: false,
-		},
+    },
+    showModal:false,
 	};
 
 	checkValidity = e => {
@@ -158,10 +160,13 @@ class ContactForm extends Component {
 
 		const city = location.filter(
 			location => location.country === this.state.contact.location.country,
-		);
+    );
+    const sortedCities = [...city].sort((a,b) => a.city > b.city)
+    console.log(sortedCities)
 
 		return (
 			<div className={styles.FormContainer}>
+        <Modal>HEJ</Modal>
 				<form className={styles.TheForm} onSubmit={this.submitForm}>
 					<div className={styles.InputContainer}>
 						<input
@@ -236,7 +241,7 @@ class ContactForm extends Component {
 						onChange={this.checkValidity}
 					>
 						<option>Select City</option>
-						{city.map((city, i) => (
+						{sortedCities.map((city, i) => (
 							<option key={i}>{city.city}</option>
 						))}
 					</select>
