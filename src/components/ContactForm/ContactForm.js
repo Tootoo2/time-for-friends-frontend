@@ -40,7 +40,7 @@ class ContactForm extends Component {
 		const isTouched = { ...this.state.touched };
 		const updatedContact = { ...this.state.contact };
 
-		const nameRegex = /^[A-za-z][a-z.\s-]{1,15}$/;
+		const nameRegex = /^[A-ZÅÄÖa-zåäö][A-ZÅÄÖa-zåäö.\s-]{1,25}$/;
 		const phoneRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]{5,12}$/;
 		const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -105,6 +105,12 @@ class ContactForm extends Component {
 			case 'city':
 				updateIsValid.city = true;
 				updatedContact.location.city = e.target.value;
+				const time = location.filter(
+					location =>
+						updatedContact.location.city === location.city &&
+						updatedContact.location.country === location.country,
+				);
+				updatedContact.location.timeZone = time[0].timezone;
 				this.setState({ contact: updatedContact, isValid: updateIsValid });
 				break;
 			default:
@@ -137,24 +143,6 @@ class ContactForm extends Component {
 			)
 			.catch(err => console.error(err));
 	};
-
-	// setTimeZone = () => {
-	// 	if (
-	// 		this.state.contact.location.city &&
-	// 		this.state.contact.location.country
-	// 	) {
-	// 		let time = location.filter(
-	// 			location =>
-	// 				location.city === this.state.contact.location.city &&
-	// 				location.country === this.state.contact.location.country,
-	// 		);
-	// 		const updatedContact = { ...this.state.contact };
-	// 		updatedContact.location.timeZone = time.map(time => time.timezone);
-	// 		console.log(updatedContact.location.timeZone[0]);
-	// 		this.setState({ contact: updatedContact.location.timeZone[0] });
-	// 	}
-	// 	this.submitForm();
-	// };
 
 	isFormReady() {
 		const arrayOfTruth = Object.values(this.state.isValid).filter(
@@ -230,6 +218,7 @@ class ContactForm extends Component {
 					</div>
 					<select
 						className={styles.InputFields}
+						value={this.state.contact.location.country}
 						name='country'
 						placeholder='Country'
 						onChange={this.checkValidity}
@@ -247,8 +236,8 @@ class ContactForm extends Component {
 						onChange={this.checkValidity}
 					>
 						<option>Select City</option>
-						{city.map(city => (
-							<option key={city.city}>{city.city}</option>
+						{city.map((city, i) => (
+							<option key={i}>{city.city}</option>
 						))}
 					</select>
 

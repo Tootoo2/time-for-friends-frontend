@@ -20,7 +20,7 @@
 }
 .InvalidInput {
 	position: absolute;
-	display: inline;
+	display: inline-block;
   font-size: 0.7em;
   margin-top: 15px;
 	color: red;
