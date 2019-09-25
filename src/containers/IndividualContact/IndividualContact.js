@@ -11,6 +11,7 @@ const individualContact = props => {
 				<li>{contact.name.firstName} {contact.name.lastName}</li>
         <li>{contact.phoneNumber}</li>
         <li>{contact.email}</li>
+        <li>{contact.location.country}</li>
         <li>{contact.location.timeZone}</li>
 			</ul>
 		</div>
