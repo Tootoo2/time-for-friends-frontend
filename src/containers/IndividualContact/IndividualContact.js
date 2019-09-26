@@ -3,7 +3,6 @@ import React from 'react';
 import styles from './IndividualContact.module.css';
 
 const individualContact = props => {
-	console.log(props);
 	const contact = props.location.state;
 	return (
 		<div className={styles.IndividualContactContainer}>

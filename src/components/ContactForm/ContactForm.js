@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import styles from './ContactForm.module.css';
-import Modal from '../UI/Modal/Modal'
+import Modal from '../UI/Modal/Modal';
 import location from './location.json';
 
 class ContactForm extends Component {
@@ -33,8 +33,8 @@ class ContactForm extends Component {
 			lastName: false,
 			phoneNumber: false,
 			email: false,
-    },
-    showModal:false,
+		},
+		showModal: false,
 	};
 
 	checkValidity = e => {
@@ -141,9 +141,28 @@ class ContactForm extends Component {
 							timeZone: '',
 						},
 					},
+					isValid: {
+						firstName: false,
+						lastName: false,
+						phoneNumber: false,
+						email: false,
+						country: false,
+						city: false,
+					},
+					touched: {
+						firstName: false,
+						lastName: false,
+						phoneNumber: false,
+						email: false,
+					},
 				}),
 			)
 			.catch(err => console.error(err));
+		this.changeModalState();
+	};
+
+	changeModalState = () => {
+		this.setState({ showModal: !this.state.showModal });
 	};
 
 	isFormReady() {
@@ -160,101 +179,111 @@ class ContactForm extends Component {
 
 		const city = location.filter(
 			location => location.country === this.state.contact.location.country,
-    );
-    const sortedCities = [...city].sort((a,b) => a.city > b.city)
-    console.log(sortedCities)
+		);
+		const sortedCities = [...city].sort((a, b) => a.city > b.city);
+
+		const modal = (
+			<>
+				<h4>You got a new friend!</h4>
+				<button onClick={this.changeModalState}>Great!</button>
+			</>
+		);
 
 		return (
-			<div className={styles.FormContainer}>
-        <Modal>HEJ</Modal>
-				<form className={styles.TheForm} onSubmit={this.submitForm}>
-					<div className={styles.InputContainer}>
-						<input
+			<>
+				<Modal show={this.state.showModal} modalClosed={this.changeModalState}>
+					{modal}
+				</Modal>
+				<div className={styles.FormContainer}>
+					<form className={styles.TheForm} onSubmit={this.submitForm}>
+						<div className={styles.InputContainer}>
+							<input
+								className={styles.InputFields}
+								type='text'
+								value={this.state.contact.name.firstName}
+								name='firstName'
+								placeholder='First Name'
+								onChange={this.checkValidity}
+							/>
+							{!this.state.isValid.firstName && this.state.touched.firstName ? (
+								<p className={styles.InvalidInput}>Invalid name</p>
+							) : null}
+						</div>
+						<div className={styles.InputContainer}>
+							<input
+								className={styles.InputFields}
+								type='text'
+								value={this.state.contact.name.lastName}
+								name='lastName'
+								placeholder='Last Name'
+								onChange={this.checkValidity}
+							/>
+							{!this.state.isValid.lastName && this.state.touched.lastName ? (
+								<p className={styles.InvalidInput}>Invalid name</p>
+							) : null}
+						</div>
+						<div className={styles.InputContainer}>
+							<input
+								className={styles.InputFields}
+								type='text'
+								value={this.state.contact.phoneNumber}
+								name='phoneNumber'
+								placeholder='Phone Number'
+								onChange={this.checkValidity}
+							/>
+							{!this.state.isValid.phoneNumber &&
+							this.state.touched.phoneNumber ? (
+								<p className={styles.InvalidInput}>Invalid number</p>
+							) : null}
+						</div>
+						<div className={styles.InputContainer}>
+							<input
+								className={styles.InputFields}
+								type='text'
+								value={this.state.contact.email}
+								name='mail'
+								placeholder='Mail'
+								onChange={this.checkValidity}
+							/>
+							{!this.state.isValid.email && this.state.touched.email ? (
+								<p className={styles.InvalidInput}>Invalid email</p>
+							) : null}
+						</div>
+						<select
 							className={styles.InputFields}
-							type='text'
-							value={this.state.contact.name.firstName}
-							name='firstName'
-							placeholder='First Name'
+							value={this.state.contact.location.country}
+							name='country'
+							placeholder='Country'
 							onChange={this.checkValidity}
-						/>
-						{!this.state.isValid.firstName && this.state.touched.firstName ? (
-							<p className={styles.InvalidInput}>Invalid name</p>
-						) : null}
-					</div>
-					<div className={styles.InputContainer}>
-						<input
+						>
+							<option value=''>Select Country</option>
+							{countriesArr.map(location => (
+								<option key={location}>{location}</option>
+							))}
+						</select>
+						<select
 							className={styles.InputFields}
-							type='text'
-							value={this.state.contact.name.lastName}
-							name='lastName'
-							placeholder='Last Name'
+							value={this.state.contact.location.city}
+							name='city'
+							placeholder='City'
 							onChange={this.checkValidity}
-						/>
-						{!this.state.isValid.lastName && this.state.touched.lastName ? (
-							<p className={styles.InvalidInput}>Invalid name</p>
-						) : null}
-					</div>
-					<div className={styles.InputContainer}>
-						<input
-							className={styles.InputFields}
-							type='text'
-							value={this.state.contact.phoneNumber}
-							name='phoneNumber'
-							placeholder='Phone Number'
-							onChange={this.checkValidity}
-						/>
-						{!this.state.isValid.phoneNumber &&
-						this.state.touched.phoneNumber ? (
-							<p className={styles.InvalidInput}>Invalid number</p>
-						) : null}
-					</div>
-					<div className={styles.InputContainer}>
-						<input
-							className={styles.InputFields}
-							type='text'
-							value={this.state.contact.email}
-							name='mail'
-							placeholder='Mail'
-							onChange={this.checkValidity}
-						/>
-						{!this.state.isValid.email && this.state.touched.email ? (
-							<p className={styles.InvalidInput}>Invalid email</p>
-						) : null}
-					</div>
-					<select
-						className={styles.InputFields}
-						value={this.state.contact.location.country}
-						name='country'
-						placeholder='Country'
-						onChange={this.checkValidity}
-					>
-						<option value=''>Select Country</option>
-						{countriesArr.map(location => (
-							<option key={location}>{location}</option>
-						))}
-					</select>
-					<select
-						className={styles.InputFields}
-						value={this.state.contact.location.city}
-						name='city'
-						placeholder='City'
-						onChange={this.checkValidity}
-					>
-						<option>Select City</option>
-						{sortedCities.map((city, i) => (
-							<option key={i}>{city.city}</option>
-						))}
-					</select>
+						>
+							<option value=''>Select City</option>
+							{sortedCities.map((city, i) => (
+								<option key={i}>{city.city}</option>
+							))}
+						</select>
 
-					{this.isFormReady() ? (
-						<button type='submit'>Submit</button>
-					) : (
-						<button type='submit' disabled>
-							Submit
-						</button>
-					)}
-				</form>
-			</div>
+						{this.isFormReady() ? (
+							<button type='submit'>Submit</button>
+						) : (
+							<button type='submit' disabled>
+								Submit
+							</button>
+						)}
+					</form>
+				</div>
+			</>
 		);
 	}
 }
