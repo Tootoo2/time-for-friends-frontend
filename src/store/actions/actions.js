@@ -1,4 +1,6 @@
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
+import setAuthToken from '../../utils/authToken';
 import * as actionTypes from './actionTypes';
 
 export const setContacts = contacts => {
@@ -21,5 +23,23 @@ export const deleteContact = id => {
 		axios.delete(`http://localhost:3001/api/people/${id}`).then(() => {
 			dispatch(fetchContacts());
 		});
+	};
+};
+
+export const loginUser = userData => dispatch => {
+  console.log('You reached loginUser with userData: ', userData)
+	axios.post('http://localhost:3001/api/users/login', userData).then(res => {
+		const { token } = res.data;
+		localStorage.setItem('jwtToken', token);
+		setAuthToken(token);
+		const decoded = jwt_decode(token);
+		dispatch(setCurrentUser(decoded));
+	});
+};
+
+export const setCurrentUser = decoded => {
+	return {
+		type: actionTypes.SET_CURRENT_USER,
+		payload: decoded,
 	};
 };
