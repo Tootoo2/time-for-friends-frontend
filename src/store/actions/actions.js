@@ -10,6 +10,13 @@ export const setContacts = contacts => {
 	};
 };
 
+export const setCurrentUser = decoded => {
+	return {
+		type: actionTypes.SET_CURRENT_USER,
+		payload: decoded,
+	};
+};
+
 export const fetchContacts = () => {
 	return dispatch => {
 		axios.get('http://localhost:3001/api/people').then(response => {
@@ -27,7 +34,6 @@ export const deleteContact = id => {
 };
 
 export const loginUser = userData => dispatch => {
-  console.log('You reached loginUser with userData: ', userData)
 	axios.post('http://localhost:3001/api/users/login', userData).then(res => {
 		const { token } = res.data;
 		localStorage.setItem('jwtToken', token);
@@ -35,11 +41,4 @@ export const loginUser = userData => dispatch => {
 		const decoded = jwt_decode(token);
 		dispatch(setCurrentUser(decoded));
 	});
-};
-
-export const setCurrentUser = decoded => {
-	return {
-		type: actionTypes.SET_CURRENT_USER,
-		payload: decoded,
-	};
 };
