@@ -4,6 +4,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import jwt_decode from 'jwt-decode';
+import setAuthToken from './utils/authToken';
+import { setCurrentUser } from './store/actions/actions';
 
 import './index.css';
 import App from './App';
@@ -11,6 +14,14 @@ import reducer from './store/reducers/reducer';
 import * as serviceWorker from './serviceWorker';
 
 const store = createStore(reducer, applyMiddleware(thunk));
+
+if (localStorage.jwtToken) {
+	const token = localStorage.jwtToken;
+	setAuthToken(token);
+	const decoded = jwt_decode(token);
+  store.dispatch(setCurrentUser(decoded));
+  console.log(token)
+}
 
 const app = (
 	<BrowserRouter>
