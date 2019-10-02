@@ -17,7 +17,7 @@ class ContactList extends Component {
 	};
 
 	componentDidMount() {
-		this.props.onFetchContacts();
+		this.props.onFetchContacts(this.props.user.id);
 	}
 
 	handleSearchInput(e) {
@@ -44,8 +44,7 @@ class ContactList extends Component {
 			pathname: 'contact/' + contact._id,
 			state: contact,
 		});
-  };
-  
+	};
 
 	sortContactsHandler = () => {
 		const sortButtons = (
@@ -57,15 +56,15 @@ class ContactList extends Component {
 							? {
 									cursor: 'pointer',
 									margin: '5px',
-                  border: '3px solid #b7cece',
-                  borderRadius: '5px',
+									border: '3px solid #b7cece',
+									borderRadius: '5px',
 									padding: '5px',
 							  }
 							: {
 									cursor: 'pointer',
 									margin: '5px',
-                  border: '1px solid gray',
-                  borderRadius: '5px',
+									border: '1px solid gray',
+									borderRadius: '5px',
 									padding: '5px',
 							  }
 					}
@@ -83,15 +82,15 @@ class ContactList extends Component {
 							? {
 									cursor: 'pointer',
 									margin: '5px',
-                  border: '3px solid #b7cece',
-                  borderRadius: '5px',
+									border: '3px solid #b7cece',
+									borderRadius: '5px',
 									padding: '5px',
 							  }
 							: {
 									cursor: 'pointer',
 									margin: '5px',
-                  border: '1px solid gray',
-                  borderRadius: '5px',
+									border: '1px solid gray',
+									borderRadius: '5px',
 									padding: '5px',
 							  }
 					}
@@ -124,12 +123,15 @@ class ContactList extends Component {
 	};
 
 	renderContacts = () => {
+		if (!this.props.user.contacts) {
+			return <div>You got no contacts</div>;
+		}
 		let contactsByTimeInterval = null;
 		let contactsToRender = null;
 		let contactsAfterSort = null;
 
 		if (this.state.timeRange.minValue !== null) {
-			contactsByTimeInterval = this.props.contacts.filter(
+			contactsByTimeInterval = this.props.user.contacts.filter(
 				p =>
 					this.state.timeRange.minValue <=
 						moment.tz(new Date(), p.location.timeZone).format('HH') &&
@@ -154,7 +156,7 @@ class ContactList extends Component {
 							removePerson={() => this.changeModalState(p._id)}
 						/>
 					)))
-			: (contactsToRender = this.props.contacts
+			: (contactsToRender = this.props.user.contacts
 					.filter(p =>
 						p.name.firstName
 							.toLowerCase()
@@ -226,13 +228,13 @@ class ContactList extends Component {
 
 const mapStateToProps = state => {
 	return {
-		contacts: state.contacts,
+		user: state.user,
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onFetchContacts: () => dispatch(fetchContacts()),
+		onFetchContacts: (id) => dispatch(fetchContacts(id)),
 		onDeleteContacts: id => dispatch(deleteContact(id)),
 	};
 };

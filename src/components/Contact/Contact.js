@@ -10,10 +10,7 @@ const contact = props => {
 			<h4 onClick={props.clicked} style={{ cursor: 'pointer' }}>
 				{props.person.name.firstName} {props.person.name.lastName}
 			</h4>
-			<i
-				className='fas fa-trash'
-				onClick={() => props.removePerson(props.person._id)}
-			></i>
+			<h4>{props.person.location.timeZone}</h4>
 		</div>
 	);
 };

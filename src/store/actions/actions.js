@@ -17,18 +17,20 @@ export const setCurrentUser = decoded => {
 	};
 };
 
-export const fetchContacts = () => {
+export const fetchContacts = id => {
 	return dispatch => {
-		axios.get('http://localhost:3001/api/people').then(response => {
-			dispatch(setContacts(response.data));
-		});
+		axios
+			.get(`http://localhost:3001/api/users/getContacts/${id}`)
+			.then(response => {
+				dispatch(setContacts(response.data.contacts));
+			});
 	};
 };
 
 export const deleteContact = id => {
 	return dispatch => {
-		axios.delete(`http://localhost:3001/api/people/${id}`).then(() => {
-			dispatch(fetchContacts());
+		axios.delete(`http://localhost:3001/api/users/delete/${id}`).then(() => {
+			dispatch(fetchContacts(id));
 		});
 	};
 };
@@ -38,13 +40,13 @@ export const loginUser = userData => dispatch => {
 		const { token } = res.data;
 		localStorage.setItem('jwtToken', token);
 		setAuthToken(token);
-    const decoded = jwt_decode(token);
+		const decoded = jwt_decode(token);
 		dispatch(setCurrentUser(decoded));
 	});
 };
 
 export const logoutUser = () => dispatch => {
-  localStorage.removeItem("jwtToken");
-  setAuthToken(false)
-  dispatch(setCurrentUser({}))
-}
+	localStorage.removeItem('jwtToken');
+	setAuthToken(false);
+	dispatch(setCurrentUser({}));
+};

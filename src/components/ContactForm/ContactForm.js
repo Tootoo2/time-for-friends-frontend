@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 import styles from './ContactForm.module.css';
 import Modal from '../UI/Modal/Modal';
@@ -122,9 +123,13 @@ class ContactForm extends Component {
 	};
 
 	submitForm = e => {
-		e.preventDefault();
+    e.preventDefault();
+    console.log(this.props.user.id, "inside submitForm()")
 		axios
-			.post('http://localhost:3001/api/people/addcontact', this.state.contact)
+			.post('http://localhost:3001/api/users/add', {
+				id: this.props.user.id,
+				newContact: this.state.contact,
+			})
 			.then(
 				res => console.log(res),
 				this.setState({
@@ -288,4 +293,10 @@ class ContactForm extends Component {
 	}
 }
 
-export default ContactForm;
+const mapStateToProps = state => {
+	return {
+		user: state.user,
+	};
+};
+
+export default connect(mapStateToProps)(ContactForm);

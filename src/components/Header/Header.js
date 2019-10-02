@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {logoutUser} from '../../store/actions/actions'
+import { logoutUser } from '../../store/actions/actions';
 
 import styles from './Header.module.css';
 
@@ -68,9 +68,12 @@ class Header extends Component {
 
 const mapStateToProps = state => {
 	return {
-    auth: state.isAuthenticated,
-    user: state.user
+		auth: state.isAuthenticated,
+		user: state.user,
 	};
 };
 
-export default connect(mapStateToProps, {logoutUser} )(Header);
+export default connect(
+	mapStateToProps,
+	{ logoutUser },
+)(Header);
