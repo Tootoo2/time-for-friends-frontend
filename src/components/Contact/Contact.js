@@ -1,11 +1,11 @@
 import React from 'react';
 
 import Clock from '../Clock/Clock';
-import style from './Contact.module.css';
+import styles from './Contact.module.css';
 
 const contact = props => {
 	return (
-		<div className={style.contactCard}>
+		<div className={styles.contactCard}>
       <div style={{flex: '2'}}>
       <Clock timeZone={props.person.location.timeZone} />
       </div>
@@ -14,7 +14,7 @@ const contact = props => {
 				{props.person.name.firstName} {props.person.name.lastName}
 			</h4>
       </div>
-      <div style={{flex: '2'}}>
+      <div className={styles.TimeZone}>
 			<i style={{fontSize: '0.9em'}}>{props.person.location.timeZone}</i>
       </div>
 		</div>

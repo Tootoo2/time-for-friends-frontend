@@ -10,12 +10,18 @@
   align-items: center;
 }
 
-I{
- cursor: pointer;
+.TimeZone{
+  flex: 2;
 }
 
 @media screen and (max-width: 900px){
   .contactCard{
     width: 85%
+  }
+}
+
+@media screen and (max-width: 600px){
+  .TimeZone{
+    display: none;
   }
 }
