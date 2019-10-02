@@ -1,9 +1,17 @@
-.FormContainer {
-	width: 50%;
+.RegisterContainer {
+	width: 40%;
+	margin-top: 100px;
 	background: whitesmoke;
 	padding: 24px;
 	border-radius: 4px;
 	border: 2px solid rgb(236, 233, 233);
+}
+
+.RegisterForm {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .InputFields {
@@ -11,29 +19,11 @@
 	margin: 8px;
 }
 
-.TheForm {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-.InvalidInput {
-	position: absolute;
-	display: inline-block;
-  font-size: 0.7em;
-  margin-top: 15px;
-	color: red;
-}
-
-.InputContainer{
-  width: 100%;
-}
-
 @media screen and (max-width: 1000px) {
-	.FormContainer {
+	.RegisterContainer {
 		width: 95%;
 	}
 	.InputFields {
-		width: 50%;
+		width: 70%;
 	}
 }

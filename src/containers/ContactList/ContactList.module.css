@@ -21,6 +21,16 @@
 	margin-right: 12px;
 }
 
+.NotLoggedIn {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: whitesmoke;
+  padding: 24px;
+	border-radius: 4px;
+	border: 2px solid rgb(236, 233, 233);
+}
 @media screen and (max-width: 900px) {
 	.ContactRow {
 		width: 100%;

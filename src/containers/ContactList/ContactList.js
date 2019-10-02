@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
+import { NavLink } from 'react-router-dom';
 
 import Contact from '../../components/Contact/Contact';
 import styles from './ContactList.module.css';
-import { fetchContacts, deleteContact } from '../../store/actions/actions';
-import Modal from '../../components/UI/Modal/Modal';
-import moment from 'moment';
+import { fetchContacts } from '../../store/actions/actions';
 
 class ContactList extends Component {
 	state = {
 		search: '',
 		isSortedByFirstName: true,
 		showModal: false,
-		id: null,
 		timeRange: { minValue: null, maxValue: null },
 	};
 
@@ -30,18 +29,13 @@ class ContactList extends Component {
 		this.setState({ search: inputToLowerCase });
 	}
 
-	deleteContact = () => {
-		this.props.onDeleteContacts(this.state.id);
-		this.setState({ showModal: !this.state.showModal, id: null });
-	};
-
-	changeModalState = id => {
-		this.setState({ showModal: !this.state.showModal, id });
+	changeModalState = () => {
+		this.setState({ showModal: !this.state.showModal });
 	};
 
 	contactSelectedHandler = contact => {
 		this.props.history.push({
-			pathname: 'contact/' + contact._id,
+			pathname: 'contact/' + contact.name.firstName,
 			state: contact,
 		});
 	};
@@ -108,7 +102,6 @@ class ContactList extends Component {
 	};
 
 	setTimeRange = e => {
-		console.log(e.target.value);
 		const newMinMax = { ...this.state.timeRange };
 
 		if (e.target.value === 'No Time Filter') {
@@ -123,9 +116,6 @@ class ContactList extends Component {
 	};
 
 	renderContacts = () => {
-		if (!this.props.user.contacts) {
-			return <div>You got no contacts</div>;
-		}
 		let contactsByTimeInterval = null;
 		let contactsToRender = null;
 		let contactsAfterSort = null;
@@ -148,12 +138,11 @@ class ContactList extends Component {
 							.concat(' ', p.name.lastName.toLowerCase())
 							.includes(this.state.search),
 					)
-					.map(p => (
+					.map((p, i) => (
 						<Contact
-							key={p._id}
+							key={i}
 							person={p}
 							clicked={() => this.contactSelectedHandler(p)}
-							removePerson={() => this.changeModalState(p._id)}
 						/>
 					)))
 			: (contactsToRender = this.props.user.contacts
@@ -163,12 +152,11 @@ class ContactList extends Component {
 							.concat(' ', p.name.lastName.toLowerCase())
 							.includes(this.state.search),
 					)
-					.map(p => (
+					.map((p, i) => (
 						<Contact
-							key={p._id}
+							key={i}
 							person={p}
 							clicked={() => this.contactSelectedHandler(p)}
-							removePerson={() => this.changeModalState(p._id)}
 						/>
 					)));
 
@@ -190,22 +178,44 @@ class ContactList extends Component {
 	};
 
 	render() {
-		let modalInfo = (
-			<div>
-				<h4>Do you really want to terminate this friendship?</h4>
-				<button onClick={() => this.deleteContact()}>Yes</button>
-				<button onClick={this.changeModalState}>No</button>
-			</div>
-		);
+    if (!this.props.user.contacts) {
+			return (
+				<div className={styles.NotLoggedIn}>
+					<h2>You need to login to use this service</h2>
+					<div>
+						<NavLink
+							to='/login'
+							exact
+							style={{
+								textDecoration: 'none',
+								color: 'green',
+								fontSize: '1.2em',
+								margin: '20px',
+							}}
+						>
+							Login
+						</NavLink>
+						<NavLink
+							to='/register'
+							exact
+							style={{
+								textDecoration: 'none',
+								color: 'green',
+								fontSize: '1.2em',
+							}}
+						>
+							Register
+						</NavLink>
+					</div>
+				</div>
+			);
+		}
 
 		return (
 			<>
-				<Modal show={this.state.showModal} modalClosed={this.changeModalState}>
-					{modalInfo}
-				</Modal>
 				<div className={styles.Greeting}>
 					<input
-						className={styles.InputStyle}
+            className={styles.InputStyle}
 						placeholder='search...'
 						onKeyUp={e => this.handleSearchInput(e)}
 					></input>
@@ -234,8 +244,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onFetchContacts: (id) => dispatch(fetchContacts(id)),
-		onDeleteContacts: id => dispatch(deleteContact(id)),
+		onFetchContacts: id => dispatch(fetchContacts(id)),
 	};
 };
 

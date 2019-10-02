@@ -1,12 +1,12 @@
 import * as actionTypes from '../actions/actionTypes';
 import isEmpty from 'is-empty';
 
-const initialState = { isAuthenticated: false, user: {} };
+const initialState = { isAuthenticated: false, user: {}, errors: {} };
 
 const setContacts = (state, action) => {
 	const updatedUser = { ...state.user };
 	updatedUser.contacts = action.payload;
-	return {...state, user: updatedUser };
+	return { ...state, user: updatedUser };
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,6 +19,12 @@ const reducer = (state = initialState, action) => {
 				...state,
 				isAuthenticated: !isEmpty(action.payload),
 				user: action.payload,
+			};
+		}
+		case actionTypes.GET_ERRORS: {
+			return {
+				...state,
+				errors: action.payload,
 			};
 		}
 		default:

@@ -6,8 +6,8 @@ import Header from './components/Header/Header';
 import ContactList from './containers/ContactList/ContactList';
 import NewContact from './containers/NewContact/NewContact';
 import IndividualContact from './containers/IndividualContact/IndividualContact';
-import Login from './auth/login';
-import Register from './auth/register';
+import Login from './auth/Login/login';
+import Register from './auth/Register/register';
 
 const App = () => {
 	return (

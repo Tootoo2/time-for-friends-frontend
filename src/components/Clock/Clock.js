@@ -9,7 +9,7 @@ class Clock extends Component {
 	componentDidMount() {
 		this.interval = setInterval(() => {
 			this.tick();
-    }, 1000);
+		}, 1000);
 	}
 
 	componentWillUnmount() {
@@ -17,22 +17,22 @@ class Clock extends Component {
 	}
 
 	tick() {
-		let timeStamp = moment()
+		let timeStamp = moment();
 		let timeZone = this.props.timeZone;
 		if (this.props.timeZone === undefined) {
 			timeZone = moment.tz.guess();
-    }
-    let newTime =  moment.tz(timeStamp, timeZone).format('HH:mm:ss')
+		}
+		let newTime = moment.tz(timeStamp, timeZone).format('HH:mm:ss');
 		this.setState({
-			time: newTime
+			time: newTime,
 		});
 	}
 
 	render() {
 		return (
-			<div>
+			<>
 				<h4>{this.state.time}</h4>
-			</div>
+			</>
 		);
 	}
 }
