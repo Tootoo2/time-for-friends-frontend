@@ -19,7 +19,7 @@ if (localStorage.jwtToken) {
 	const token = localStorage.jwtToken;
 	setAuthToken(token);
 	const decoded = jwt_decode(token);
-  store.dispatch(setCurrentUser(decoded));
+	store.dispatch(setCurrentUser(decoded));
 }
 
 const app = (

@@ -16,7 +16,9 @@ class ContactList extends Component {
 	};
 
 	componentDidMount() {
-		this.props.onFetchContacts(this.props.user.id);
+		if (this.props.auth) {
+			this.props.onFetchContacts(this.props.user.id);
+		}
 	}
 
 	handleSearchInput(e) {
@@ -43,7 +45,7 @@ class ContactList extends Component {
 	sortContactsHandler = () => {
 		const sortButtons = (
 			<>
-				<p>Sort contacts by: </p>
+				<p>Sort contacts: </p>
 				<div
 					style={
 						this.state.isSortedByFirstName
@@ -178,10 +180,10 @@ class ContactList extends Component {
 	};
 
 	render() {
-    if (!this.props.user.contacts) {
+		if (!this.props.user.contacts) {
 			return (
 				<div className={styles.NotLoggedIn}>
-					<h2>You need to login to use this service</h2>
+					<h2>Log in to use this service</h2>
 					<div>
 						<NavLink
 							to='/login'
@@ -215,7 +217,7 @@ class ContactList extends Component {
 			<>
 				<div className={styles.Greeting}>
 					<input
-            className={styles.InputStyle}
+						className={styles.InputStyle}
 						placeholder='search...'
 						onKeyUp={e => this.handleSearchInput(e)}
 					></input>
@@ -239,6 +241,7 @@ class ContactList extends Component {
 const mapStateToProps = state => {
 	return {
 		user: state.user,
+		auth: state.isAuthenticated,
 	};
 };
 

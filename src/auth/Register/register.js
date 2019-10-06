@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { registerUser } from '../../store/actions/actions';
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 
 import styles from './register.module.css';
 import Modal from '../../components/UI/Modal/Modal';
@@ -15,25 +15,27 @@ class Register extends Component {
 		errors: {},
 		showModal: false,
 	};
+	timeout;
 
 	componentDidMount() {
 		if (this.props.auth) {
 			this.props.history.push('/');
 		}
 	}
+	componentWillUnmount() {
+		clearTimeout(this.timeout);
+	}
 
 	static getDerivedStateFromProps(nextProps, nextState) {
-		console.log(nextState.errors);
 		if (nextProps.errors) {
 			return {
 				errors: nextProps.errors,
 			};
-    }
+		}
 	}
 
 	onChange = e => {
-    this.setState({ [e.target.id]: e.target.value });
-    console.log(this.state.email)
+		this.setState({ [e.target.id]: e.target.value });
 	};
 
 	onSubmit = e => {
@@ -46,9 +48,12 @@ class Register extends Component {
 			password2: this.state.password2,
 		};
 
-    this.props.registerUser(newUser, this.props.history);
-    console.log(this.state)
-    this.changeModalState()
+		this.props.registerUser(newUser, this.props.history);
+		this.timeout = setTimeout(() => {
+			if (this.props.errors) {
+				this.changeModalState();
+			}
+		}, 1000);
 	};
 
 	changeModalState = () => {
@@ -60,10 +65,11 @@ class Register extends Component {
 
 		return (
 			<>
-				<Modal
-					show={this.state.showModal}
-					modalClosed={this.changeModalState}
-				>{Object.values(errors).map(err=><p>{err}</p>)}</Modal>
+				<Modal show={this.state.showModal} modalClosed={this.changeModalState}>
+					{Object.values(errors).map((err, i) => (
+						<p key={i}>{err}</p>
+					))}
+				</Modal>
 				<div className={styles.RegisterContainer}>
 					<form className={styles.RegisterForm} onSubmit={this.onSubmit}>
 						<input

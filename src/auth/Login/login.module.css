@@ -1,4 +1,4 @@
-.LoginContainer{
+.LoginContainer {
 	width: 40%;
 	margin-top: 100px;
 	background: whitesmoke;
@@ -7,16 +7,16 @@
 	border: 2px solid rgb(236, 233, 233);
 }
 
-.LoginForm{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.LoginForm {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
-.InputFields{
-width: 50%;
-margin: 8px;
+.InputFields {
+	width: 50%;
+	margin: 8px;
 }
 
 @media screen and (max-width: 1000px) {

@@ -16,8 +16,8 @@ class Header extends Component {
 						style={{
 							textDecoration: 'none',
 							color: 'black',
-              fontSize: '1.2em',
-              margin: '8px'
+							fontSize: '1.2em',
+							margin: '8px',
 						}}
 						activeStyle={{
 							textDecoration: 'underline black',
@@ -31,8 +31,8 @@ class Header extends Component {
 						style={{
 							textDecoration: 'none',
 							color: 'black',
-              fontSize: '1.2em',
-              margin: '8px'
+							fontSize: '1.2em',
+							margin: '8px',
 						}}
 						activeStyle={{
 							textDecoration: 'underline black',
@@ -41,25 +41,27 @@ class Header extends Component {
 						New Contact
 					</NavLink>
 				</div>
-        <div className={styles.LoggedStatus}>
-				{this.props.auth ? (
-					<p style={{fontSize: '1.2em'}} onClick={this.props.logoutUser}>Logout</p>
-				) : (
-					<NavLink
-						to='/login'
-						style={{
-							textDecoration: 'none',
-							color: 'black',
-							fontSize: '1.2em',
-						}}
-						activeStyle={{
-							textDecoration: 'underline black',
-						}}
-					>
-						Login
-					</NavLink>
-        )}
-        </div>
+				<div className={styles.LoggedStatus}>
+					{this.props.auth ? (
+						<p style={{ fontSize: '1.2em' }} onClick={this.props.logoutUser}>
+							Logout
+						</p>
+					) : (
+						<NavLink
+							to='/login'
+							style={{
+								textDecoration: 'none',
+								color: 'black',
+								fontSize: '1.2em',
+							}}
+							activeStyle={{
+								textDecoration: 'underline black',
+							}}
+						>
+							Login
+						</NavLink>
+					)}
+				</div>
 			</header>
 		);
 	}

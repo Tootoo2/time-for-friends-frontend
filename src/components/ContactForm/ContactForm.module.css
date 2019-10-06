@@ -20,13 +20,13 @@
 .InvalidInput {
 	position: absolute;
 	display: inline-block;
-  font-size: 0.7em;
-  margin-top: 15px;
+	font-size: 0.7em;
+	margin-top: 15px;
 	color: red;
 }
 
-.InputContainer{
-  width: 100%;
+.InputContainer {
+	width: 100%;
 }
 
 @media screen and (max-width: 1000px) {

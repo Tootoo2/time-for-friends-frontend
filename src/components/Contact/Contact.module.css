@@ -3,25 +3,25 @@
 	padding: 0.1rem 0.25rem;
 	border: 2px solid #ccc;
 	margin-bottom: 1rem;
-  width: 60%;
-  background: whitesmoke;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+	width: 60%;
+	background: whitesmoke;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
-.TimeZone{
-  flex: 2;
+.TimeZone {
+	flex: 2;
 }
 
-@media screen and (max-width: 900px){
-  .contactCard{
-    width: 85%
-  }
+@media screen and (max-width: 900px) {
+	.contactCard {
+		width: 85%;
+	}
 }
 
-@media screen and (max-width: 600px){
-  .TimeZone{
-    display: none;
-  }
+@media screen and (max-width: 600px) {
+	.TimeZone {
+		display: none;
+	}
 }

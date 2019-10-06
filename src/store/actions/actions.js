@@ -29,7 +29,7 @@ export const fetchContacts = id => {
 
 export const registerUser = (userData, history) => dispatch => {
 	axios
-		.post('http://localhost:3001/api/users/register',  userData )
+		.post('http://localhost:3001/api/users/register', userData)
 		.then(res => history.push('/login'))
 		.catch(err =>
 			dispatch({
@@ -38,14 +38,6 @@ export const registerUser = (userData, history) => dispatch => {
 			}),
 		);
 };
-
-// export const deleteContact = id => {
-// 	return dispatch => {
-// 		axios.delete(`http://localhost:3001/api/users/delete/${id}`).then(() => {
-// 			dispatch(fetchContacts(id));
-// 		});
-// 	};
-// };
 
 export const loginUser = userData => dispatch => {
 	axios

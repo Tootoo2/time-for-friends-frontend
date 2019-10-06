@@ -123,46 +123,47 @@ class ContactForm extends Component {
 	};
 
 	submitForm = e => {
-    e.preventDefault();
-    console.log(this.props.user.id, "inside submitForm()")
-		axios
-			.post('http://localhost:3001/api/users/add', {
-				id: this.props.user.id,
-				newContact: this.state.contact,
-			})
-			.then(
-				res => console.log(res),
-				this.setState({
-					contact: {
-						name: {
-							firstName: '',
-							lastName: '',
+		e.preventDefault();
+		if (this.props.auth) {
+			axios
+				.post('http://localhost:3001/api/users/add', {
+					id: this.props.user.id,
+					newContact: this.state.contact,
+				})
+				.then(
+					res => console.log(res),
+					this.setState({
+						contact: {
+							name: {
+								firstName: '',
+								lastName: '',
+							},
+							phoneNumber: '',
+							email: '',
+							location: {
+								country: '',
+								city: '',
+								timeZone: '',
+							},
 						},
-						phoneNumber: '',
-						email: '',
-						location: {
-							country: '',
-							city: '',
-							timeZone: '',
+						isValid: {
+							firstName: false,
+							lastName: false,
+							phoneNumber: false,
+							email: false,
+							country: false,
+							city: false,
 						},
-					},
-					isValid: {
-						firstName: false,
-						lastName: false,
-						phoneNumber: false,
-						email: false,
-						country: false,
-						city: false,
-					},
-					touched: {
-						firstName: false,
-						lastName: false,
-						phoneNumber: false,
-						email: false,
-					},
-				}),
-			)
-			.catch(err => console.error(err));
+						touched: {
+							firstName: false,
+							lastName: false,
+							phoneNumber: false,
+							email: false,
+						},
+					}),
+				)
+				.catch(err => console.error(err));
+		}
 		this.changeModalState();
 	};
 
@@ -187,10 +188,14 @@ class ContactForm extends Component {
 		);
 		const sortedCities = [...city].sort((a, b) => a.city > b.city);
 
-		const modal = (
+		const modal = this.props.auth ? (
 			<>
 				<h4>You got a new friend!</h4>
 				<button onClick={this.changeModalState}>Great!</button>
+			</>
+		) : (
+			<>
+				<h4>Log in to add a friend!</h4>
 			</>
 		);
 
@@ -296,6 +301,7 @@ class ContactForm extends Component {
 const mapStateToProps = state => {
 	return {
 		user: state.user,
+		auth: state.isAuthenticated,
 	};
 };
 

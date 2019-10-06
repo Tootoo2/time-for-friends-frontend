@@ -10,8 +10,13 @@ class Login extends Component {
 		email: '',
 		password: '',
 		errors: {},
-    showModal: false,
+		showModal: false,
 	};
+	timeout;
+
+	componentWillUnmount() {
+		clearTimeout(this.timeout);
+	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
 		if (nextProps.auth) {
@@ -23,19 +28,6 @@ class Login extends Component {
 			};
 		}
 	}
-
-	// componentWillReceiveProps(nextProps) {
-	// 	console.log(nextProps);
-	// 	if (nextProps.auth) {
-	// 		this.props.history.push('/');
-	// 	}
-
-	// 	if (nextProps.errors) {
-	// 		this.setState({
-	// 			errors: nextProps.errors,
-	// 		});
-	// 	}
-	// }
 
 	onChange = e => {
 		this.setState({ [e.target.id]: e.target.value });
@@ -50,9 +42,11 @@ class Login extends Component {
 		};
 
 		this.props.loginUser(userData);
-		if (!this.props.auth) {
-			this.changeModalState();
-		}
+		this.timeout = setTimeout(() => {
+			if (!this.props.auth) {
+				this.changeModalState();
+			}
+		}, 1000);
 	};
 
 	changeModalState = () => {
@@ -78,16 +72,16 @@ class Login extends Component {
 					<h3>Login to meet your friends</h3>
 					<form className={styles.LoginForm} onSubmit={this.onSubmit}>
 						<input
-              className={styles.InputFields}
-              type="text"
+							className={styles.InputFields}
+							type='text'
 							onChange={this.onChange}
 							value={this.state.email}
 							id='email'
 							placeholder='Email'
 						></input>
 						<input
-              className={styles.InputFields}
-              type="password"
+							className={styles.InputFields}
+							type='password'
 							onChange={this.onChange}
 							value={this.state.password}
 							id='password'

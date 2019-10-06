@@ -1,12 +1,12 @@
-.ContactContainer{
-  margin-top: 100px;
-  min-width: 100%;
-  display: flex;
-  justify-content: center;
+.ContactContainer {
+	margin-top: 100px;
+	min-width: 100%;
+	display: flex;
+	justify-content: center;
 }
 
-@media screen and (max-width: 900px){
-  .ContactContainer{
-    margin-top: 76px;
-  }
+@media screen and (max-width: 900px) {
+	.ContactContainer {
+		margin-top: 76px;
+	}
 }

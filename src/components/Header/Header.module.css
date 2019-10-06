@@ -8,20 +8,22 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-  padding: 0 20px;
-  border-bottom: 1px dotted gray;
+	padding: 0 20px;
+	border-bottom: 1px dotted gray;
 }
 
-.LoggedStatus{
-  position: absolute;
-  margin-right: 10px;
-  right: 0;
+.LoggedStatus {
+	position: absolute;
+	margin-right: 10px;
+	right: 0;
+	cursor: pointer;
 }
 
-@media screen and (max-width: 600px){
-  .Header{
-    font-size: 0.8em;
-  }
+@media screen and (max-width: 600px) {
+	.Header {
+		font-size: 0.8em;
+	}
+	.LoggedStatus {
+		display: none;
+	}
 }
-
-
